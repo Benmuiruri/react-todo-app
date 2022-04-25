@@ -12,6 +12,12 @@ class TodoItem extends React.Component {
     });
   };
 
+  handleUpdatedDone = e => {
+    if (e.key === 'Enter') {
+      this.setState({ editing: false });
+    }
+  }
+
   render() {
     const completedStyle = {
       fontStyle: 'italic',
@@ -49,6 +55,7 @@ class TodoItem extends React.Component {
           onChange={(e) => {
             this.props.updateItem(e.target.value, id);
           }}
+          onKeyDown={this.handleUpdatedDone}
         />
       </li>
     );
