@@ -6,17 +6,21 @@ class TodoItem extends React.Component {
     editing: false,
   };
 
+  componentWillUnmount() {
+    console.log('Cleaning up...');
+  }
+
   handleEditing = () => {
     this.setState({
       editing: true,
     });
   };
 
-  handleUpdatedDone = e => {
+  handleUpdatedDone = (e) => {
     if (e.key === 'Enter') {
       this.setState({ editing: false });
     }
-  }
+  };
 
   render() {
     const completedStyle = {
