@@ -11,25 +11,30 @@ class InputTodo extends Component {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addTodoProps(this.state.title);
-    this.setState({
-      title: ''
-    })
-  }
+    if (this.state.title.trim()) {
+      this.props.addTodoProps(this.state.title);
+      this.setState({
+        title: '',
+      });
+    } else {
+      alert('A task cannot be empty');
+    }
+  };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className='form-container'>
         <input
           type='text'
-          placeholder='Add Todo...'
-          name='title'
+          className='input-text'
+          placeholder='Add todo...'
           value={this.state.title}
+          name='title'
           onChange={this.inputHandler}
         />
-        <button>Submit</button>
+        <button className='input-submit'>Submit</button>
       </form>
     );
   }
