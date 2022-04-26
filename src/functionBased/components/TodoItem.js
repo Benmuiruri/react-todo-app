@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from './TodoItem.module.css';
 import { FaTrash } from 'react-icons/fa';
+import styles from './TodoItem.module.css';
 
 const TodoItem = (props) => {
   const [editing, setEditing] = useState(false);
@@ -15,10 +15,8 @@ const TodoItem = (props) => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      console.log('Cleaning up...');
-    };
+  useEffect(() => () => {
+    console.log('Cleaning up...');
   }, []);
 
   const completedStyle = {
@@ -30,8 +28,8 @@ const TodoItem = (props) => {
 
   const { completed, id, title } = props.todo;
 
-  let viewMode = {};
-  let editMode = {};
+  const viewMode = {};
+  const editMode = {};
 
   if (editing) {
     viewMode.display = 'none';
@@ -42,7 +40,7 @@ const TodoItem = (props) => {
     <li className={styles.item}>
       <div onDoubleClick={handleEditing} style={viewMode}>
         <input
-          type='checkbox'
+          type="checkbox"
           className={styles.checkbox}
           checked={completed}
           onChange={() => props.handleChangeProps(id)}
@@ -53,7 +51,7 @@ const TodoItem = (props) => {
         <span style={completed ? completedStyle : null}>{title}</span>
       </div>
       <input
-        type='text'
+        type="text"
         value={title}
         className={styles.textInput}
         style={editMode}

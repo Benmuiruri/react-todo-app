@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TodosList from './TodosList';
 import Header from './Header';
 import InputTodo from './InputTodo';
-import { v4 as uuidv4 } from 'uuid';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 
 const TodoContainer = () => {
   const getInitialTodos = () => {
@@ -18,31 +17,27 @@ const TodoContainer = () => {
   const [todos, setTodos] = useState(getInitialTodos());
 
   const handleChange = (id) => {
-    setTodos((prevState) =>
-      prevState.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      })
-    );
+    setTodos((prevState) => prevState.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          completed: !todo.completed,
+        };
+      }
+      return todo;
+    }));
   };
 
   const delTodo = (id) => {
     setTodos([
-      ...todos.filter((todos) => {
-        return todos.id !== id;
-      }),
+      ...todos.filter((todos) => todos.id !== id),
     ]);
   };
 
   const addTodoItem = (title) => {
     const newTodo = {
       id: uuidv4(),
-      title: title,
+      title,
       completed: false,
     };
     setTodos([...todos, newTodo]);
@@ -55,7 +50,7 @@ const TodoContainer = () => {
           todo.title = updatedTitle;
         }
         return todo;
-      })
+      }),
     );
   };
 
@@ -66,8 +61,8 @@ const TodoContainer = () => {
   }, [todos]);
 
   return (
-    <div className='container'>
-      <div className='inner'>
+    <div className="container">
+      <div className="inner">
         <Header />
         <InputTodo addTodoProps={addTodoItem} />
         <TodosList
